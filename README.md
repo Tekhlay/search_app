@@ -17,9 +17,7 @@
 
 # 📖 Helpjuice Full-Stack (Rails & Vanilla JS) Internship Test <a name="about-project"></a>
 
-> The Blog app is a classic blog website. A fully functional website that shows the list of posts and empower readers to interact with them by adding comments and liking posts.
-
-## Project Screenshots
+> This a search app to create a realtime search box, where users search articles, and then to have analytics that display what users were searching for. You can also track via IP - no need to create a devise, etc. The main goal is to record their input in realtime and ultimately display analytics & trends on what people are searching for the most. (this is not about search itself, but really about analytics behind it).
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -51,8 +49,8 @@ In order to run this project you need installed Ruby, Postgres, rails on your lo
 Clone this repository to your local machine:
 
 ```sh
-  git clone https://github.com/EmekaEmmanuel/Blograils.git
-  cd Blograils
+  git clone https://github.com/Tekhlay/search_app.git
+  cd search_app
 
 ```
 
@@ -68,17 +66,10 @@ To run the project, execute the following command in terminal:
 
 ## 👥 Authors <a name="author"></a>
 
-👤 **Emeka Emmanuel Ugboaja**
+👤 **Tekhlay B.**
 
-- GitHub: [EmekaEmmanuel](https://github.com/EmekaEmmanuel)
-- Twitter: [@emekaekeoha](https://twitter.com/emekaekeoha)
-- LinkedIn: [emeka-ugboaja](https://www.linkedin.com/in/emeka-ugboaja)
-
-👤 **Innocent N.**
-
-- GitHub: [@chaseknis](https://github.com/Chaseknis)
-- Twitter: [@ChaseToTheWorld](https://twitter.com/chasetotheworld)
-- LinkedIn: [Innocent N.](https://www.linkedin.com/in/innocent-n-200826252/)
+- GitHub: [Tekhlay](https://github.com/Tekhlay)
+- LinkedIn: [Tekhlay](https://www.linkedin.com/in/tekhlay)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -86,40 +77,6 @@ To run the project, execute the following command in terminal:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-> To implement more rails functionalities in the future.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
-
-## 🤝 Contributing <a name="contributing"></a>
-
-Contributions, issues, and feature requests are welcome!
-
-Feel free to check the [issues page](https://github.com/EmekaEmmanuel/Blograils/issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- SUPPORT -->
-
-## ⭐️ Show your support <a name="support"></a>
-
-Give a ⭐️ if you like this project!
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGEMENTS -->
-
-## 🙏 Acknowledgments <a name="acknowledgements"></a>
-
-we would like to thank microverse community for the support and guidance.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- LICENSE -->
-
-## 📝 License <a name="license"></a>
-
-This project is [MIT](./LICENSE) licensed.
+> There is a room for improvement the logic and UI of the app in the future.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
