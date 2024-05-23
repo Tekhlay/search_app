@@ -29,10 +29,9 @@
 
 ### Key Features <a name="key-features"></a>
 
-- Implementation and use of rails file structure.
-- Implementation and use of models.
-- Implementation and use of basic views and controller.
-- Implementation and use of model and controller rspec test.
+- Implementation Realtime search box and record it with rails.
+- Implement Query Analysis feature.
+- Implementation and use of model and controller, Rspec test.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
