@@ -23,6 +23,6 @@ test:
 
 production:
   <<: *default
-  database: searchapp
+  database: searchapp_dor5
   username: searchapp
   password: <%= ENV['SEARCHAPP_DATABASE_PASSWORD'] %>
