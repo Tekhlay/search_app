@@ -23,4 +23,6 @@ test:
 
 production:
   <<: *default
-  database: search_production
+  database: searchapp
+  username: searchapp
+  password: <%= ENV["NUNKI_BACKEND_DATABASE_PASSWORD"] %>
