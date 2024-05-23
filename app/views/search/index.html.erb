@@ -1,26 +1,52 @@
-<input type="text" id="searchInput" placeholder="Search...">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    var typingTimer; // Timer identifier
-    var doneTypingInterval = 500; // Time in milliseconds (adjust as needed)
+  <input type="text" id="searchInput" placeholder="Search...">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/compromise@13.10.1/builds/compromise.min.js"></script>
 
-    // Capture user input on keyup event
-    $('#searchInput').keyup(function() {
-      clearTimeout(typingTimer); // Clear the previous timer
+  <script>
+    $(document).ready(function() {
+      var typingTimer; // Timer identifier
+      var doneTypingInterval = 1000; // Time in milliseconds (adjust as needed)
+      var lastCompleteQuery = ""; // Variable to store the last complete query
 
-      // Start a new timer
-      typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    });
+      // Capture user input on input event
+      $('#searchInput').on('input', function() {
+        clearTimeout(typingTimer); // Clear the previous timer
 
-    // Function to execute after typing is finished
-    function doneTyping() {
-      var query = $('#searchInput').val().trim();
+        // Start a new timer
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+      });
 
-      // Check if the query is complete
-      if (isCompleteQuery(query)) {
-        // Send completed query to the backend
+      // Function to execute after typing is finished
+      function doneTyping() {
+        var query = $('#searchInput').val().trim();
+
+        // Check if the query is complete and different from the last complete query
+        if (isCompleteQuery(query) && query !== lastCompleteQuery) {
+          lastCompleteQuery = query; // Update the last complete query
+
+          // Send the complete query to the backend
+          logQuery(lastCompleteQuery);
+        }
+      }
+
+      // Function to check if the query is complete using compromise.js and additional criteria
+      function isCompleteQuery(query) {
+        // Use compromise to analyze the query
+        const doc = nlp(query);
+
+        // Check multiple criteria for completeness
+        const isSentence = doc.sentences().length > 0; // At least one complete sentence
+        const hasNouns = doc.nouns().out('array').length > 0; // Contains at least one noun
+        const hasVerbs = doc.verbs().out('array').length > 0; // Contains at least one verb
+        const lengthThreshold = query.split(" ").length > 2; // Minimum length of three words
+
+        // Return true if all criteria are met
+        return isSentence && hasNouns && hasVerbs && lengthThreshold;
+      }
+
+      // Function to log the query to the backend
+      function logQuery(query) {
         $.ajax({
           url: '/search/log',
           method: 'POST',
@@ -33,47 +59,5 @@
           }
         });
       }
-    }
-
-    // Function to check if the query is complete
-    function isCompleteQuery(query) {
-      // Split the query into words
-      var words = query.split(' ');
-
-      // Define a list of parts of speech that indicate a complete sentence
-      var completePartsOfSpeech = ["NN", "NNS", "NNP", "NNPS", "VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "JJ", "JJR", "JJS"];
-
-      // Iterate through the words in the query
-      for (var i = 0; i < words.length; i++) {
-        // Perform a basic part-of-speech check
-        if (completePartsOfSpeech.includes(getPartOfSpeech(words[i]))) {
-          return true; // Complete query
-        }
-      }
-
-      // Incomplete query
-      return false;
-    }
-
-    // Function to get the part of speech of a word (simplified)
-    function getPartOfSpeech(word) {
-      // Perform a basic check to determine the part of speech
-      // This is a simplified example and won't be highly accurate
-      if (/^[A-Z].*/.test(word)) {
-        return "NNP"; // Proper noun
-      } else if (/[a-zA-Z]+ing$/.test(word)) {
-        return "VBG"; // Verb ending in -ing
-      } else if (/[a-zA-Z]+(ed|d)$/.test(word)) {
-        return "VBD"; // Verb ending in -ed or -d
-      } else if (/[a-zA-Z]+(s|es)$/.test(word)) {
-        return "NNS"; // Noun ending in -s or -es
-      } else if (/^[a-zA-Z]+$/.test(word)) {
-        return "NN"; // Singular noun
-      } else if (/^[0-9]+$/.test(word)) {
-        return "CD"; // Cardinal number
-      } else {
-        return "O"; // Other
-      }
-    }
-  });
-</script>
+    });
+  </script>
