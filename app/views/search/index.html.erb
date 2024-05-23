@@ -1,9 +1,79 @@
-<h1>Search Articles</h1>
-<%= form_tag search_create_path, method: :post, remote: true do %>
-  <%= text_field_tag :query, params[:query], placeholder: "Search articles..." %>
-  <%= submit_tag "Search" %>
-<% end %>
+<input type="text" id="searchInput" placeholder="Search...">
 
-<div id="articles">
-  <%= render 'search_results' %>
-</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var typingTimer; // Timer identifier
+    var doneTypingInterval = 500; // Time in milliseconds (adjust as needed)
+
+    // Capture user input on keyup event
+    $('#searchInput').keyup(function() {
+      clearTimeout(typingTimer); // Clear the previous timer
+
+      // Start a new timer
+      typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+
+    // Function to execute after typing is finished
+    function doneTyping() {
+      var query = $('#searchInput').val().trim();
+
+      // Check if the query is complete
+      if (isCompleteQuery(query)) {
+        // Send completed query to the backend
+        $.ajax({
+          url: '/search/log',
+          method: 'POST',
+          data: { query: query },
+          success: function(response) {
+            console.log('Query logged successfully');
+          },
+          error: function(xhr, status, error) {
+            console.error('Error logging query:', error);
+          }
+        });
+      }
+    }
+
+    // Function to check if the query is complete
+    function isCompleteQuery(query) {
+      // Split the query into words
+      var words = query.split(' ');
+
+      // Define a list of parts of speech that indicate a complete sentence
+      var completePartsOfSpeech = ["NN", "NNS", "NNP", "NNPS", "VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "JJ", "JJR", "JJS"];
+
+      // Iterate through the words in the query
+      for (var i = 0; i < words.length; i++) {
+        // Perform a basic part-of-speech check
+        if (completePartsOfSpeech.includes(getPartOfSpeech(words[i]))) {
+          return true; // Complete query
+        }
+      }
+
+      // Incomplete query
+      return false;
+    }
+
+    // Function to get the part of speech of a word (simplified)
+    function getPartOfSpeech(word) {
+      // Perform a basic check to determine the part of speech
+      // This is a simplified example and won't be highly accurate
+      if (/^[A-Z].*/.test(word)) {
+        return "NNP"; // Proper noun
+      } else if (/[a-zA-Z]+ing$/.test(word)) {
+        return "VBG"; // Verb ending in -ing
+      } else if (/[a-zA-Z]+(ed|d)$/.test(word)) {
+        return "VBD"; // Verb ending in -ed or -d
+      } else if (/[a-zA-Z]+(s|es)$/.test(word)) {
+        return "NNS"; // Noun ending in -s or -es
+      } else if (/^[a-zA-Z]+$/.test(word)) {
+        return "NN"; // Singular noun
+      } else if (/^[0-9]+$/.test(word)) {
+        return "CD"; // Cardinal number
+      } else {
+        return "O"; // Other
+      }
+    }
+  });
+</script>
