@@ -29,11 +29,15 @@
 
 ### Key Features <a name="key-features"></a>
 
-- Implementation Realtime search box and record it with rails.
-- Implement Query Analysis feature.
+- Implementation Realtime search box that handles the real-time search functionality and logging of search queries.
+- Provides the analytics dashboard for displaying search trends and statistics.
 - Implementation and use of model and controller, Rspec test.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Live Demo <a name="live-demo"></a>
+
+Click here to see [live](https://search-app-yaqf.onrender.com/) of the project.
 
 <!-- GETTING STARTED -->
 
