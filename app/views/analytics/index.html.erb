@@ -1,29 +1,18 @@
 <h1>Search Analytics</h1>
 
-<h2>Popular Searches</h2>
-<table>
-  <tr>
-    <th>Query</th>
-    <th>Count</th>
-  </tr>
-  <% @search_queries.each do |query, count| %>
-    <tr>
-      <td><%= query %></td>
-      <td><%= count %></td>
-    </tr>
-  <% end %>
-</table>
+<h2>Unique Queries</h2>
+<p><%= @unique_queries %></p>
 
-<h2>Searches by IP Address</h2>
-<table>
-  <tr>
-    <th>IP Address</th>
-    <th>Count</th>
-  </tr>
-  <% @ip_addresses.each do |ip_address, count| %>
-    <tr>
-      <td><%= ip_address %></td>
-      <td><%= count %></td>
-    </tr>
+<h2>Top Queries</h2>
+<ul>
+  <% @top_queries.each do |query, count| %>
+    <li><%= query %> (<%= count %> searches)</li>
   <% end %>
-</table>
+</ul>
+
+<h2>Your Searches</h2>
+<ul>
+  <% @user_searches.each do |search| %>
+    <li><%= search.query %> (searched on <%= search.created_at %>)</li>
+  <% end %>
+</ul>

@@ -1,6 +1,7 @@
 class AnalyticsController < ApplicationController
   def index
-    @search_queries = SearchQuery.group(:query).count
-    @ip_addresses = SearchQuery.group(:ip_address).count
+    @unique_queries = SearchQuery.unique_queries
+    @top_queries = SearchQuery.top_queries
+    @user_searches = SearchQuery.by_ip_address(request.remote_ip)
   end
 end
